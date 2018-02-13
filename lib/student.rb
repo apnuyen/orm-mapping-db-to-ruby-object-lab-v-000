@@ -28,7 +28,7 @@ class Student
     # return a new instance of the Student class
     sql = <<-SQL
       SELECT *
-      FROM students 
+      FROM students
       WHERE name = ?
       LIMIT 1
     SQL
@@ -64,19 +64,28 @@ class Student
     DB[:conn].execute(sql)
   end
 
-  def self.count_all_students_in_grade_9 
-  end 
+  def self.count_all_students_in_grade_9
+    sql = <<-SQL
+      SELECT *
+      FROM students
+      WHERE grade = 9
+    SQL
 
-  def self.students_below_12th_grade 
-  end 
+    DB[:conn].execute(sql, grade).map do |row|
+      self.new_from_db(row)
+    end.count
+  end
+
+  def self.students_below_12th_grade
+  end
 
   def self.first_X_students_in_grade_10(arg)
-  end 
+  end
 
   def self.first_student_in_grade_10
-  end 
+  end
 
   def self.all_students_in_grade_X(grade)
-  end 
-  
+  end
+
 end
